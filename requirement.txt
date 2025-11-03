@@ -1,9 +1,9 @@
-streamlit==1.38.0
-matplotlib
+streamlit
 pandas
-numpy
+matplotlib
 plotly
-flask
+fpdf
+
 
 
 
