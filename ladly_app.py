@@ -41,9 +41,6 @@ st.markdown("""
         .sidebar .sidebar-content {
             background-color: #b76e79;
         }
-        .css-18e3th9 {
-            background-color: #f7dfe5 !important;
-        }
         h1, h2, h3 {
             color: #b76e79;
             font-weight: 600;
@@ -54,9 +51,6 @@ st.markdown("""
             border-radius: 15px;
             text-align: center;
             box-shadow: 0px 2px 8px rgba(183, 110, 121, 0.2);
-        }
-        div[data-testid="stSidebarNav"] ul {
-            background-color: #b76e79;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -74,7 +68,7 @@ menu = ["Dashboard", "Book Appointment", "View Appointments", "Generate Invoice"
 choice = st.sidebar.selectbox("Select Page", menu)
 
 # ---------------------------------------------
-# APPOINTMENT BOOKING PAGE
+# BOOK APPOINTMENT
 # ---------------------------------------------
 if choice == "Book Appointment":
     st.subheader("📅 Book a New Appointment")
@@ -144,7 +138,8 @@ elif choice == "Dashboard":
         st.markdown("### 💇‍♀️ Appointments by Service Type")
         service_counts = df["service"].value_counts()
         fig2, ax2 = plt.subplots()
-        ax2.pie(service_counts.values, labels=service_counts.index, autopct="%1.1f%%", startangle=90, colors=["#f4b6c2", "#b76e79", "#ffc4d6", "#ffb3c6", "#e7a0b6", "#c25b73"])
+        ax2.pie(service_counts.values, labels=service_counts.index, autopct="%1.1f%%", startangle=90,
+                colors=["#f4b6c2", "#b76e79", "#ffc4d6", "#ffb3c6", "#e7a0b6", "#c25b73"])
         st.pyplot(fig2)
 
 # ---------------------------------------------
@@ -167,7 +162,7 @@ elif choice == "Generate Invoice":
         st.write(f"**Time:** {record['time']}")
         st.write(f"**Amount:** ₹{record['price']}")
 
-        # PDF GENERATION
+        # PDF GENERATION FIXED
         def generate_pdf(data):
             pdf = FPDF()
             pdf.add_page()
@@ -182,9 +177,10 @@ elif choice == "Generate Invoice":
             pdf.ln(10)
             pdf.cell(0, 10, "Thank you for visiting Ladly!", ln=True, align="C")
 
-            # Convert to bytes for download
+            # Write PDF to memory buffer
             pdf_output = BytesIO()
-            pdf.output(pdf_output)
+            pdf_bytes = pdf.output(dest='S').encode('latin1')
+            pdf_output.write(pdf_bytes)
             pdf_output.seek(0)
             return pdf_output
 
