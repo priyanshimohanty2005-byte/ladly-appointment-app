@@ -1,9 +1,9 @@
-streamlit
+streamlit==1.38.0
 matplotlib
 pandas
 numpy
-flask
-seaborn
-scikit-learn
 plotly
+flask
+
+
 
