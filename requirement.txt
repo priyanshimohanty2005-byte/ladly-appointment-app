@@ -1,5 +1,5 @@
 streamlit==1.39.0
 pandas
-matplotlib
-sqlite-utils
+matplotlib==3.9.2
 reportlab
+sqlite-utils
